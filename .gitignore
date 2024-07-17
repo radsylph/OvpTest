@@ -8,7 +8,7 @@ default-*.json
 gen/
 node_modules/
 target/
-
+/pg.yml
 
 
 # Web IDE, App Studio
