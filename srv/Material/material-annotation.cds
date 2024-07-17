@@ -20,11 +20,11 @@ annotate call.material with {
                 {
                     $Type            : 'Common.ValueListParameterInOut',
                     LocalDataProperty: cat_mat_ID,
-                    ValueListProperty: 'nam_cat'
+                    ValueListProperty: 'ID'
                 },
                 {
                     $Type            : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty: 'des_cat'
+                    ValueListProperty: 'nam_cat'
                 }
             ]
         },
@@ -59,31 +59,36 @@ annotate call.material with  @odata.draft.enabled  @(UI: {
         }
     },
 
-    SelectionFields       : [cat_mat_ID, ],
+    SelectionFields       : [cat_mat_ID],
 
     FieldGroup #MaterialFG: {
+
         $Type: 'UI.FieldGroupType',
         Data : [
             {
                 $Type: 'UI.DataField',
-                Value: nam_mat
+                Value: nam_mat,
+                Label: '{i18n>mat_name}'
             },
             {
                 $Type: 'UI.DataField',
-                Value: des_mat
+                Value: des_mat,
+                Label: '{i18n>mat_des}'
             },
             {
                 $Type: 'UI.DataField',
-                Value: cat_mat_ID
+                Value: cat_mat_ID,
+                Label: '{i18n>mat_cat}'
             },
             {
                 $Type: 'UI.DataField',
-                Value: pri_mate
+                Value: pri_mate,
+                Label: '{i18n>mat_pri}'
             }
         ]
     },
 
-    LineItem #MaterialLI  : [
+    LineItem #test        : [
         {
             $Type: 'UI.DataField',
             Value: nam_mat
@@ -102,14 +107,10 @@ annotate call.material with  @odata.draft.enabled  @(UI: {
         }
     ],
 
-    Facets                : [
-        {
-            $Type : 'UI.ReferenceFacet',
-            Target: '@UI.FieldGroup#MaterialFG'
-        },
-        {
-            $Type : 'UI.ReferenceFacet',
-            Target: '@UI.LineItem#MaterialLI'
-        }
-    ],
+    Facets                : [{
+        $Type : 'UI.ReferenceFacet',
+        Target: '@UI.FieldGroup#MaterialFG',
+        Label : 'test',
+        ID    : 'FieldGroup'
+    }],
 });
