@@ -28,18 +28,8 @@ entity currency : cuid, managed {
 entity buy_receipt : cuid, managed {
     dat_receipt : DateTime;
     tot_receipt : Decimal(10, 2);
-}
-
-entity sell_receipt : cuid, managed {   
-    dat_receipt : DateTime;
-    tot_receipt : Decimal(10, 2);
-}
-
-entity sell_movement : cuid, managed {
-    rec_id       : Association to sell_receipt;
-    mat_id       : Association to material;
-    cur_id       : Association to currency;
-    qua_movement : Integer;
+    movements   : Composition of many buy_movement
+                      on movements.rec_id = $self;
 }
 
 entity buy_movement : cuid, managed {
@@ -49,3 +39,16 @@ entity buy_movement : cuid, managed {
     qua_movement : Integer;
 }
 
+entity sell_receipt : cuid, managed {
+    dat_receipt : DateTime;
+    tot_receipt : Decimal(10, 2);
+    movements   : Composition of many sell_movement
+                      on movements.rec_id = $self;
+}
+
+entity sell_movement : cuid, managed {
+    rec_id       : Association to sell_receipt;
+    mat_id       : Association to material;
+    cur_id       : Association to currency;
+    qua_movement : Integer;
+}
