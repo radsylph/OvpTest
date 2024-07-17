@@ -31,7 +31,7 @@ annotate call.category with  @odata.draft.enabled  @(UI: {
         ]
     },
 
-    LineItem #CategoryLI  : [
+    LineItem              : [
         {
             $Type: 'UI.DataField',
             Value: nam_cat
@@ -42,18 +42,10 @@ annotate call.category with  @odata.draft.enabled  @(UI: {
         }
     ],
 
-    Facets                : [
-        {
-            $Type : 'UI.ReferenceFacet',
-            Target: '@UI.FieldGroup#CategoryFG',
-            Label : '{i18n>cat_items}',
-            ID    : 'ItemsFacetFG'
-        },
-        {
-            $Type : 'UI.ReferenceFacet',
-            Target: '@UI.LineItem#CategoryLI',
-            Label : '{i18n>cat_items}',
-            ID    : 'ItemsFacetLI'
-        }
-    ],
+    Facets                : [{
+        $Type : 'UI.ReferenceFacet',
+        Target: '@UI.FieldGroup#CategoryFG',
+        Label : '{i18n>cat_items}',
+        ID    : 'FieldGroupCategory'
+    }],
 });
