@@ -36,12 +36,14 @@
     "watch": "cds-ts w",
     "build:ts": "tsc",
     "build": "cds build && npm run build:ts",
-    "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-project2": "cds watch --open project2/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "imports": {
     "#cds-models/*": "./@cds-models/*/index.js"
   },
   "sapux": [
-    "app/project1"
+    "app/project1",
+    "app/project2"
   ]
 }
