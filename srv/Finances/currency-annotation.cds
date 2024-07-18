@@ -1,7 +1,7 @@
 using {financeService as call} from '../services';
 
 annotate call.currency with {
-    nam_cur @title: '{i18n>cur_nam}';
+    nam_cur @title: '{i18n>cur_name}';
     des_cur @title: '{i18n>cur_des}';
     sym_cur @title: '{i18n>cur_sym}';
     rat_cur @title: '{i18n>cur_rat}';

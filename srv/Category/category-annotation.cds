@@ -45,7 +45,7 @@ annotate call.category with  @odata.draft.enabled  @(UI: {
     Facets                : [{
         $Type : 'UI.ReferenceFacet',
         Target: '@UI.FieldGroup#CategoryFG',
-        Label : '{i18n>cat_items}',
+        Label : '{i18n>cat_fac}',
         ID    : 'FieldGroupCategory'
     }],
 });

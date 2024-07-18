@@ -25,9 +25,32 @@ entity currency : cuid, managed {
     rat_cur : Decimal(10, 2);
 }
 
+entity receipt : cuid, managed {
+    dat_receipt : DateTime;
+    movements   : Composition of many movement
+                      on movements.rec_id = $self;
+}
+
+entity movement : cuid, managed {
+    rec_id       : Association to receipt;
+    mat_id       : Association to material;
+    cur_id       : Association to currency;
+    qua_movement : Integer;
+}
+
+entity receipt_type : CodeList {
+    key code  : String enum {
+            Buy  = 'BUY';
+            Sell = 'SELL';
+        };
+        name  : String @UI.Hidden;
+        descr : String @UI.Hidden;
+}
+
 entity buy_receipt : cuid, managed {
     dat_receipt : DateTime;
     tot_receipt : Decimal(10, 2);
+    rec_type    : Association to receipt_type;
     movements   : Composition of many buy_movement
                       on movements.rec_id = $self;
 }

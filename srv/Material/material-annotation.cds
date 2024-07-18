@@ -2,10 +2,10 @@ using {inventoryService as call} from '../services';
 
 annotate call.material with {
     ID       @UI.Hidden;
-    nam_mat  @title: '{i18n>nam_mat}';
-    des_mat  @title: '{i18n>des_mat}';
-    cat_mat  @title: '{i18n>cat_mat}';
-    pri_mate @title: '{i18n>pri_mate}';
+    nam_mat  @title: '{i18n>mat_name}';
+    des_mat  @title: '{i18n>mat_des}';
+    cat_mat  @title: '{i18n>mat_cat}';
+    pri_mate @title: '{i18n>mat_pri}';
 }
 
 //hacer el ValueList
@@ -32,22 +32,6 @@ annotate call.material with {
     })
 }
 
-// @Common.ValueList: {
-//     $Type         : 'Common.ValueListType',
-//     CollectionPath: 'category',
-//     Parameters    : [
-//         {
-//             $Type            : 'Common.ValueListParameterInOut',
-//             LocalDataProperty: 'cat_mat_ID',
-//             ValueListProperty: 'nam_cat'
-//         },
-//         {
-//             $Type            : 'Common.ValueListParameterDisplayOnly',
-//             ValueListProperty: 'des_cat'
-//         }
-//     ]
-// }
-
 annotate call.material with  @odata.draft.enabled  @(UI: {
     HeaderInfo            : {
         $Type         : 'UI.HeaderInfoType',
@@ -68,49 +52,83 @@ annotate call.material with  @odata.draft.enabled  @(UI: {
             {
                 $Type: 'UI.DataField',
                 Value: nam_mat,
-                Label: '{i18n>mat_name}'
             },
             {
                 $Type: 'UI.DataField',
                 Value: des_mat,
-                Label: '{i18n>mat_des}'
             },
             {
                 $Type: 'UI.DataField',
                 Value: cat_mat_ID,
-                Label: '{i18n>mat_cat}'
             },
             {
                 $Type: 'UI.DataField',
                 Value: pri_mate,
-                Label: '{i18n>mat_pri}'
             }
         ]
     },
 
-    LineItem #test        : [
+    LineItem #MaterialLI  : [
         {
             $Type: 'UI.DataField',
-            Value: nam_mat
+            Value: nam_mat,
         },
         {
             $Type: 'UI.DataField',
-            Value: des_mat
+            Value: des_mat,
         },
         {
             $Type: 'UI.DataField',
-            Value: cat_mat_ID
+            Value: cat_mat_ID,
         },
         {
             $Type: 'UI.DataField',
-            Value: pri_mate
+            Value: pri_mate,
         }
     ],
 
     Facets                : [{
         $Type : 'UI.ReferenceFacet',
         Target: '@UI.FieldGroup#MaterialFG',
-        Label : 'test',
+        Label : '{i18n>mat_fac}',
         ID    : 'FieldGroup'
     }],
 });
+
+annotate call.material with @(
+    UI.Chart #Line              : {
+        $Type              : 'UI.ChartDefinitionType',
+        ChartType          : #Line,
+        Description        : 'Line Chart',
+        Measures           : [pri_mate],
+        MeasureAttributes  : [{
+            $Type    : 'UI.ChartMeasureAttributeType',
+            Measure  : pri_mate,
+            Role     : #Axis1,
+            DataPoint: '@UI.DataPoint#LineDataPoint'
+        }],
+        Dimensions         : [nam_mat],
+        DimensionAttributes: [{
+            $Type    : 'UI.ChartDimensionAttributeType',
+            Dimension: nam_mat,
+            Role     : #Category,
+        }]
+    },
+    UI.PresentationVariant #Line: {
+        $Type            : 'UI.PresentationVariantType',
+        Visualizations   : ['@UI.Chart#Line'],
+        MaxItems         : 4,
+        IncludeGrandTotal: true,
+        SortOrder        : [{
+            $Type     : 'Common.SortOrderType',
+            Descending: true,
+            Property  : pri_mate
+        }]
+    },
+
+    UI.DataPoint #LineDataPoint : {
+        $Type: 'UI.DataPointType',
+        Title: 'Line Chart',
+        Value: pri_mate
+    }
+);
